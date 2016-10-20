@@ -1,13 +1,13 @@
 #' Precdict from raster Brick in parallel
-#' #@description prediction from \link{\code{ranger}} model.
+#' @description prediction from ranger model.
 #' Can be memory hungry! Fro big models better use fewer calc blocks and more ranger threats.
-#' #@param model Object of class \code{ranger}, see \link{\code{ranger::ranger}}.
+#' @param model Object of class \code{ranger}, see ranger::ranger.
 #' Other models are currently not supported!
 #' @param b_metrics RasterBrick of covariates
 #' @param b_clumps RasterLayer (optional) with spatial segments
 #' @param df_clumps data.frame (optional) with additional covarates linked to spatial segments.
 #' @param type Character What should eb returned, "response" or "probs" (scaled from 0..254).
-#' #@param ranger_threads Integer. Numebr of cores threads for  \link{\code{ranger::predict.ranger}}
+#' @param ranger_threads Integer. Numebr of cores threads for ranger::predict.ranger
 #' @param minrows Integer. See \code{\link{mcCalc}}.
 #' @param mc.cores Integer. See \code{\link{mcCalc}}.
 #' @param logfile Character, see \code{\link{mcCalc}}.
