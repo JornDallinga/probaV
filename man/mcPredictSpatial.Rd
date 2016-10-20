@@ -9,7 +9,7 @@ mcPredictSpatial(model, b_metrics, b_clumps = NULL, df_clumps = NULL,
   mc.cores = 1, logfile, ...)
 }
 \arguments{
-\item{model}{Object of class \code{ranger}, see \link{\code{ranger::ranger}}.
+\item{model}{Object of class \code{ranger}, see ranger::ranger.
 Other models are currently not supported!}
 
 \item{b_metrics}{RasterBrick of covariates}
@@ -20,7 +20,7 @@ Other models are currently not supported!}
 
 \item{type}{Character What should eb returned, "response" or "probs" (scaled from 0..254).}
 
-\item{ranger_threads}{Integer. Numebr of cores threads for  \link{\code{ranger::predict.ranger}}}
+\item{ranger_threads}{Integer. Numebr of cores threads for  ranger::predict.ranger}
 
 \item{minrows}{Integer. See \code{\link{mcCalc}}.}
 
@@ -34,7 +34,7 @@ Other models are currently not supported!}
 RasterLayer with predictions.
 }
 \description{
-prediction from \link{\code{ranger}} model.
+prediction from ranger model.
 Can be memory hungry! Fro big models better use fewer calc blocks and more ranger threats.
 }
 
