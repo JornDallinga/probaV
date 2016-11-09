@@ -3,10 +3,11 @@
 #' @description Stacks Prova-V layers.
 #' @author J Eberenz
 #' @param x Character. Directory of a Proba-V geotiffs or list of filenames.
-#' @param patttern Character. As in \code{\link{list.files}}
-#' @param orderChrono Logical. Wether to oder the stack chronologically. Defatult \code{TRUE}.
-#' @param tile Character. Whcih tile to process. Format: "X00Y00".
+#' @param pattern Character. As in \code{\link{list.files}}
+#' @param order_chrono Logical. Wether to order the stack chronologically. Defatult \code{TRUE}.
+#' @param tile Character. Which tile to process. Format: "X00Y00".
 #' @param quick Logical. See \code{raster::stack}
+#' @param start_date Date. first date to process.
 #' @param end_date Date. Last date to process.
 #' @param ... Additional arguments to \code{raster::writeRaster}
 #'
@@ -16,7 +17,7 @@
 #'
 #' @import raster
 
-timeStackProbaV <- function(x, pattern, order_chrono=TRUE, tile=NULL, quick=FALSE, end_date=NULL, ...){
+timeStackProbaV <- function(x, pattern, order_chrono=TRUE, tile=NULL, quick=FALSE, start_date = NULL, end_date=NULL, ...){
 
   df_info <- getProbaVinfo(x, pattern)
   if(order_chrono){
@@ -24,10 +25,17 @@ timeStackProbaV <- function(x, pattern, order_chrono=TRUE, tile=NULL, quick=FALS
   }
 
   if (!is.null(tile)) df_info  <- df_info[df_info$tile==tile, ]
-  if (!is.null(end_date)) df_info  <- df_info[as.numeric(df_info$date) <= end_date,]
+  if (!is.null(end_date) & !is.null(start_date)){
+    df_info  <- df_info[(df_info$date) <= end_date & (df_info$date) >= start_date,]
+  } else if (is.null(end_date)) {
+    end_date <- max(df_info$date)
+  } else if (is.null(start_date)){
+    start_date <- min(df_info$date)
+  }
 
+  if (!is.null(end_date) & !is.null(start_date)) df_info  <- df_info[(df_info$date) <= end_date & (df_info$date) >= start_date,]
 
-  s <- raster::stack(file.path(fdir, df_info$fpath), quick=quick)
+  s <- raster::stack(file.path(x, df_info$fpath), quick=quick)
 
   #cat("build brick ... ")
   #s <- brick(s)
