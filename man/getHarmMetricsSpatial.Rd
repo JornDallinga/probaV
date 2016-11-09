@@ -4,12 +4,14 @@
 \alias{getHarmMetricsSpatial}
 \title{Calculate time series metrics for a tile}
 \usage{
-getHarmMetricsSpatial(x, n_years = NULL, order = 2, robust = FALSE,
-  cf_bands, thresholds = c(-80, Inf, -120, 120), span = 0.3,
-  scale_f = NULL, minrows = 1, mc.cores = 1, logfile, ...)
+getHarmMetricsSpatial(x, df_probav_sm, n_years = NULL, order = 1,
+  robust = FALSE, cf_bands, thresholds = c(-80, Inf, -120, 120),
+  span = 0.3, scale_f = NULL, minrows = 1, mc.cores = 1, logfile, ...)
 }
 \arguments{
 \item{x}{RasterBrick or RasterStack Input time series. Layer names must follow proba_v pattern.}
+
+\item{df_probav_sm}{dataframe of info on Proba-V tiles. See \code{\link{getProbaVinfo}}}
 
 \item{n_years}{Integer. See \code{\link{getHarmMetrics}}}
 
@@ -21,11 +23,11 @@ getHarmMetricsSpatial(x, n_years = NULL, order = 2, robust = FALSE,
 
 \item{thresholds}{threshold Numeric vector of length 2. See \code{\link{smoothLoess}}.}
 
-\item{scale_f}{Numeric of length bands. Sclaing factor per band.}
+\item{scale_f}{Numeric of length bands. Scaling factor per band.}
 
-\item{minrows}{Numeric. Min blcok size fore  \code{\link{mcCalc}}}
+\item{minrows}{Numeric. Min block size for  \code{\link{mcCalc}}}
 
-\item{mc.cores}{Numeric. Processign cores, see\code{\link{mcCalc}}}
+\item{mc.cores}{Numeric. Processing cores, see\code{\link{mcCalc}}}
 
 \item{logfile}{Character. See \code{\link{mcCalc}}}
 

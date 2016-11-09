@@ -5,27 +5,29 @@
 \title{Build GDAL vrt from probav images}
 \usage{
 timeVrtProbaV(x, pattern, stacked_bands = NULL, vrt_name,
-  order_chrono = TRUE, tile = NULL, end_date = NULL,
-  return_raster = TRUE)
+  order_chrono = TRUE, tile = NULL, start_date = NULL, end_date = NULL,
+  return_raster = TRUE, ...)
 }
 \arguments{
 \item{x}{Character. Directory of a Proba-V geotiffs or list of well formated filenames.}
 
-\item{stacked_bands}{Character. Which abnds are stacked (typically RADIOMETRY)}
+\item{pattern}{Character. As in \code{\link{list.files}}.}
+
+\item{stacked_bands}{Character. Which bands are stacked (typically RADIOMETRY)}
 
 \item{vrt_name}{Character. Output filename.}
 
 \item{tile}{Character. Which tile to process. Format: "X00Y00".}
 
+\item{start_date}{Date. First date to process.}
+
 \item{end_date}{Date. Last date to process.}
 
-\item{patttern}{Character. As in \code{\link{list.files}}.}
+\item{return_raster}{Logical. Wether a RasterBrick should be returned.
+Else an info data.frame is returned (see \code{\link{getProbaVInfo}})}
 
-\item{orderChrono}{Logical. Wether to oder the stack chronologically.
+\item{order}{Chrono Logical. Wether to order the stack chronologically.
 Default \code{TRUE}.}
-
-\item{retunr_raster}{Logical. Weather a RasterBrick should eb returned.
-Else a info data.frame witht is returned (see \code{\link{getProbaVInfo}})}
 }
 \value{
 a rasterBrick pointing to the vrt or a data.frame with meta data.

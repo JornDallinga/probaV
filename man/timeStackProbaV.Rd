@@ -5,22 +5,24 @@
 \title{Build time stack from probav images}
 \usage{
 timeStackProbaV(x, pattern, order_chrono = TRUE, tile = NULL,
-  quick = FALSE, end_date = NULL, ...)
+  quick = FALSE, start_date = NULL, end_date = NULL, ...)
 }
 \arguments{
 \item{x}{Character. Directory of a Proba-V geotiffs or list of filenames.}
 
-\item{tile}{Character. Whcih tile to process. Format: "X00Y00".}
+\item{pattern}{Character. As in \code{\link{list.files}}}
+
+\item{order_chrono}{Logical. Wether to order the stack chronologically. Defatult \code{TRUE}.}
+
+\item{tile}{Character. Which tile to process. Format: "X00Y00".}
 
 \item{quick}{Logical. See \code{raster::stack}}
+
+\item{start_date}{Date. first date to process.}
 
 \item{end_date}{Date. Last date to process.}
 
 \item{...}{Additional arguments to \code{raster::writeRaster}}
-
-\item{patttern}{Character. As in \code{\link{list.files}}}
-
-\item{orderChrono}{Logical. Wether to oder the stack chronologically. Defatult \code{TRUE}.}
 }
 \value{
 a RasterStack or rasterBrick.

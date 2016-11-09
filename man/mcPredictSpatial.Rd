@@ -20,7 +20,7 @@ Other models are currently not supported!}
 
 \item{type}{Character What should eb returned, "response" or "probs" (scaled from 0..254).}
 
-\item{ranger_threads}{Integer. Numebr of cores threads for  ranger::predict.ranger}
+\item{ranger_threads}{Integer. Numebr of cores threads for ranger::predict.ranger}
 
 \item{minrows}{Integer. See \code{\link{mcCalc}}.}
 

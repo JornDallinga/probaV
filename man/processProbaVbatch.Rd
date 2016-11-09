@@ -4,9 +4,9 @@
 \alias{processProbaVbatch}
 \title{Wrapper/batcher to pre-process Proba-V in batch mode}
 \usage{
-processProbaVbatch(x, pattern = "NDVI.tif$", tiles = NULL, start_d = NULL,
-  QC_val, fill = NULL, as.is = FALSE, outdir, ncores = 1,
-  overwrite = FALSE)
+processProbaVbatch(x, pattern = pattern, tiles = NULL, start_date = NULL,
+  end_date = NULL, QC_val = QC_val, fill = NULL, as.is = FALSE, outdir,
+  ncores = 1, overwrite = FALSE)
 }
 \arguments{
 \item{x}{Character. Directory where the data is located. Or list of file names.}
@@ -14,8 +14,6 @@ processProbaVbatch(x, pattern = "NDVI.tif$", tiles = NULL, start_d = NULL,
 \item{pattern}{Character. Only useful if x is of length 1. See \link{list.files} for more details}
 
 \item{tiles}{Character. Tiles to process, format "X10Y06",}
-
-\item{start_d}{Date. Starting date.}
 
 \item{QC_val}{Numeric. See \code{\link{cleanProbaV}}}
 
@@ -26,6 +24,10 @@ processProbaVbatch(x, pattern = "NDVI.tif$", tiles = NULL, start_d = NULL,
 \item{outdir}{Character. Directory where the output should be written.}
 
 \item{ncores}{Numeric. Number of cores to use for processing. See \link{registerDoParallel}}
+
+\item{start_d}{Date. Starting date.}
+
+\item{end_d}{Date. End date.}
 
 \item{overwritw}{Logical. Wether to overwrite existing files using the same naming convention in outdir. ault is \code{FALSE})}
 }
