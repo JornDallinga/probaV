@@ -1,14 +1,15 @@
 #' Calculate time series metrics for a tile
 #' @description Spatial version of \code{\link{getHarmMetrics}}, using \code{\link{mcCalc}}.
 #' @param x RasterBrick or RasterStack Input time series. Layer names must follow proba_v pattern.
+#' @param df_probav_sm dataframe of info on Proba-V tiles. See \code{\link{getProbaVinfo}}
 #' @param n_years Integer. See \code{\link{getHarmMetrics}}
 #' @param order Integer. See \code{\link{getHarmMetrics}}
 #' @param robust Logical. See \code{\link{getHarmMetrics}}
 #' @param cf_bands Integer. Which bands to use for temporal cloud filter (See \code{\link{smoothLoess}})
 #' @param thresholds threshold Numeric vector of length 2. See \code{\link{smoothLoess}}.
-#' @param scale_f Numeric of length bands. Sclaing factor per band.
-#' @param minrows Numeric. Min blcok size fore  \code{\link{mcCalc}}
-#' @param mc.cores Numeric. Processign cores, see\code{\link{mcCalc}}
+#' @param scale_f Numeric of length bands. Scaling factor per band.
+#' @param minrows Numeric. Min block size for  \code{\link{mcCalc}}
+#' @param mc.cores Numeric. Processing cores, see\code{\link{mcCalc}}
 #' @param logfile Character. See \code{\link{mcCalc}}
 #' @param ... additional arguments to \code{\link{mcCalc}}.
 #'
@@ -16,10 +17,11 @@
 #' @export
 #'
 
-getHarmMetricsSpatial <- function(x, n_years=NULL, order=2, robust=FALSE,
-                                  cf_bands, thresholds=c(-80, Inf, -120, 120) , span=0.3, scale_f=NULL, minrows=1, mc.cores=1, logfile, ...) {
-
-  s_info <- getProbaVinfo(names(x))
+getHarmMetricsSpatial <- function(x, df_probav_sm, n_years=NULL, order=1, robust=FALSE,
+                                     cf_bands, thresholds=c(-80, Inf, -120, 120) , span=0.3, scale_f=NULL, minrows=1, mc.cores=1, logfile, ...) {
+  # Copy dataframe
+  s_info <- df_probav_sm
+  # Assign metadata to variables
   bands <- s_info[s_info$date == s_info$date[1], 'band']
   dates <- s_info[s_info$band == bands[1], 'date']
   ydays <- s_info[s_info$band == bands[1], 'yday']
@@ -27,7 +29,8 @@ getHarmMetricsSpatial <- function(x, n_years=NULL, order=2, robust=FALSE,
     stop("Inputstack nlayers doesn't fit meta data in layer names!")
   }
   thresholds <- matrix(thresholds, nrow=2)
-  len_res <- (3 + (order*2)) * length(bands)
+  len_res <- (4 + (order*2)) * length(bands)
+
   cat("\nOutputlayers:", len_res, "\n")
 
 
@@ -45,7 +48,7 @@ getHarmMetricsSpatial <- function(x, n_years=NULL, order=2, robust=FALSE,
         }
 
         #get metrics
-        coefs <- apply(m, 1, FUN=getHarmMetrics, yday=ydays, QC_good=qc, order=order, robust=robust)
+        coefs <- apply(m, 1, FUN=getHarmMetrics, yday=ydays, QC_good=qc, order=order, robust=robust, dates = dates)
 
         if (!is.null(scale_f)){
           # scaling
@@ -66,12 +69,12 @@ getHarmMetricsSpatial <- function(x, n_years=NULL, order=2, robust=FALSE,
       res <- rep(NA_integer_, len_res)
     }
 
-    # no names, because they get lsot in mc.calc anyway
+    # no names, because they get lost in mc.calc anyway
     return(res)
   }
 
-  # use mcCalc ratehr than mc.calc (controll minrows)
-  out <- mcCalc(x=x, fun=fun, minrows = minrows, mc.cores = mc.cores, logfile=logfile, ...)
+  # use mcCalc rather than mc.calc (controll minrows)
+  out <- mcCalc(x=x, fun=fun, minrows = minrows, mc.cores = mc.cores, logfile=logfile, out_name = out_name)
 
   return(out)
 }
