@@ -10,7 +10,7 @@
 #'
 #' @return A single rasterLayer, or a stack of the bands for RADIOMETRY input
 #' @export
-#' @author J Eberenz, adapted from Loic Dutrieux
+#' @author J Eberenz, adapted from Loic Dutrieuxs
 #'
 #' @seealso \code{\link{processProbaVbatch}} for batcher
 #'
