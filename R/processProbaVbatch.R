@@ -23,6 +23,7 @@
 #' @import raster
 #' @import doParallel
 #' @import foreach
+#' @import stringr
 
 processProbaVbatch <- function(x, pattern = pattern, tiles=NULL, start_date=NULL, end_date=NULL, QC_val = QC_val, fill=NULL, as.is=FALSE, outdir, ncores=1, overwrite=FALSE) {
 
@@ -52,20 +53,20 @@ processProbaVbatch <- function(x, pattern = pattern, tiles=NULL, start_date=NULL
   }
   if (!is.null(end_date) & !is.null(start_date)) {
     info <- subset(info, info$date >= start_date & info$date <= end_date)
-
+  } else if (!is.null(end_date) & is.null(start_date)){
+    info <- subset(info, info$date <= end_date)
+  } else if (!is.null(start_date) & is.null(end_date)){
+    info <- subset(info, info$date >= start_date)
   }
-    # When you only insert 1 directory
-  if(length(x) == 1) {
-    x <- info$date
-    # if you follow the YYYYMMDD structure with multiple folders
-  } else {
-    f <- gsub("-", "", info$date)
-    # subset YYYYMMDD for file names
-    gg <- subset(x2, str_sub(x2,-8,-1) %in% f)
 
-    # Create file names
-    x <- info
-    x <- paste0(gg,'/',x$fpath)
+  # When you only insert 1 directory
+  if (length(x) == 1){
+    x <- paste0(x2,'/',info$fpath)
+  } else {
+    # When you have multiple directories following YYYYMMDD
+    f <- gsub("-", "", info$date)
+    gg <- subset(x2, str_sub(x2,-8,-1) %in% f)
+    x <- paste0(gg,'/',info$fpath)
   }
 
   dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
