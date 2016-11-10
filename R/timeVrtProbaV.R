@@ -46,6 +46,8 @@ timeVrtProbaV <- function(x, pattern, stacked_bands=NULL, vrt_name, order_chrono
   }
 
   if (!is.null(end_date) & !is.null(start_date)) df_info  <- df_info[(df_info$date) <= end_date & (df_info$date) >= start_date,]
+  if (is.null(end_date) & !is.null(start_date)) df_info  <- df_info[(df_info$date) >= start_date,]
+  if (!is.null(end_date) & is.null(start_date)) df_info  <- df_info[(df_info$date) <= end_date,]
 
 
   if(!is.null(stacked_bands))  {
