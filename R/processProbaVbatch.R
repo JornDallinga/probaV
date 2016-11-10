@@ -3,7 +3,7 @@
 #' @description Processes Proba-V data for subsequentent use in time-series analysis. Performs Proba-V cleaning and operations with parallel support using foreach
 #'
 #' @param x Character. Directory where the data is located. Or list of file names.
-#' @param pattern Character. Only useful if x is of length 1. See \link{list.files} for more details
+#' @param pattern Character. if more folders are supplied, they must all follow the YYYYMMDD folder structure. Default is 'RADIOMETRY'. See \link{list.files} for more details
 #' @param tiles Character. Tiles to process, format "X10Y06",
 #' @param start_d Date. Starting date.
 #' @param end_d Date. End date.
@@ -25,7 +25,7 @@
 #' @import foreach
 #' @import stringr
 
-processProbaVbatch <- function(x, pattern = pattern, tiles=NULL, start_date=NULL, end_date=NULL, QC_val = QC_val, fill=NULL, as.is=FALSE, outdir, ncores=1, overwrite=FALSE) {
+processProbaVbatch <- function(x, pattern = "RADIOMETRY", tiles=NULL, start_date=NULL, end_date=NULL, QC_val = QC_val, fill=NULL, as.is=FALSE, outdir, ncores=1, overwrite=FALSE) {
 
   if (!is.character(x)) {
     stop('x needs to be of class character')

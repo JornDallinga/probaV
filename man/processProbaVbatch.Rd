@@ -4,14 +4,14 @@
 \alias{processProbaVbatch}
 \title{Wrapper/batcher to pre-process Proba-V in batch mode}
 \usage{
-processProbaVbatch(x, pattern = pattern, tiles = NULL, start_date = NULL,
-  end_date = NULL, QC_val = QC_val, fill = NULL, as.is = FALSE, outdir,
-  ncores = 1, overwrite = FALSE)
+processProbaVbatch(x, pattern = "RADIOMETRY", tiles = NULL,
+  start_date = NULL, end_date = NULL, QC_val = QC_val, fill = NULL,
+  as.is = FALSE, outdir, ncores = 1, overwrite = FALSE)
 }
 \arguments{
 \item{x}{Character. Directory where the data is located. Or list of file names.}
 
-\item{pattern}{Character. Only useful if x is of length 1. See \link{list.files} for more details}
+\item{pattern}{Character. if more folders are supplied, they must all follow the YYYYMMDD folder structure. Default is 'RADIOMETRY'. See \link{list.files} for more details}
 
 \item{tiles}{Character. Tiles to process, format "X10Y06",}
 
