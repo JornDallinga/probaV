@@ -89,7 +89,7 @@ getHarmMetrics <- function(x, dates=NULL, QC_good=NULL, sig=0.95, n_years=NA, li
   } else {
     lmh <- lm(form)
   }
-  print(summary(lmh))
+  #print(summary(lmh))
   if (return_model) return(lmh)
 
   metrics <- c(quantile(x, probs = c(0.01, 0.99), na.rm = T), lmh$coefficients)
