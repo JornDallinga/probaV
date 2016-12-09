@@ -11,6 +11,7 @@
 #' @param minrows Numeric. Min block size for  \code{\link{mcCalc}}
 #' @param mc.cores Numeric. Processing cores, see\code{\link{mcCalc}}
 #' @param logfile Character. See \code{\link{mcCalc}}
+#' @param filename Character. location and name of output file.
 #' @param ... additional arguments to \code{\link{mcCalc}}.
 #'
 #' @return rasterBrick with metrics as bands.
@@ -18,7 +19,7 @@
 #'
 
 getHarmMetricsSpatial <- function(x, df_probav_sm, n_years=NULL, order=1, robust=FALSE,
-                                     cf_bands, thresholds=c(-80, Inf, -120, 120) , span=0.3, scale_f=NULL, minrows=1, mc.cores=1, logfile, ...) {
+                                     cf_bands, thresholds=c(-80, Inf, -120, 120) , span=0.3, scale_f=NULL, minrows=1, mc.cores=1, logfile, filename, ...) {
   # Copy dataframe
   s_info <- df_probav_sm
   # Assign metadata to variables
@@ -74,7 +75,7 @@ getHarmMetricsSpatial <- function(x, df_probav_sm, n_years=NULL, order=1, robust
   }
 
   # use mcCalc rather than mc.calc (controll minrows)
-  out <- mcCalc(x=x, fun=fun, minrows = minrows, mc.cores = mc.cores, logfile=logfile, out_name = out_name)
+  out <- mcCalc(x=x, fun=fun, minrows = minrows, mc.cores = mc.cores, logfile=logfile, out_name = filename)
 
   return(out)
 }

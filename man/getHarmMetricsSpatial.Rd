@@ -6,7 +6,8 @@
 \usage{
 getHarmMetricsSpatial(x, df_probav_sm, n_years = NULL, order = 1,
   robust = FALSE, cf_bands, thresholds = c(-80, Inf, -120, 120),
-  span = 0.3, scale_f = NULL, minrows = 1, mc.cores = 1, logfile, ...)
+  span = 0.3, scale_f = NULL, minrows = 1, mc.cores = 1, logfile,
+  filename, ...)
 }
 \arguments{
 \item{x}{RasterBrick or RasterStack Input time series. Layer names must follow proba_v pattern.}
@@ -30,6 +31,8 @@ getHarmMetricsSpatial(x, df_probav_sm, n_years = NULL, order = 1,
 \item{mc.cores}{Numeric. Processing cores, see\code{\link{mcCalc}}}
 
 \item{logfile}{Character. See \code{\link{mcCalc}}}
+
+\item{filename}{Character. location and name of output file.}
 
 \item{...}{additional arguments to \code{\link{mcCalc}}.}
 }
