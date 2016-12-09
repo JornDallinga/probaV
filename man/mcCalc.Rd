@@ -18,7 +18,7 @@ mcCalc(x, minrows = 1, fun, mc.cores = 1, logfile = NULL, out_name,
 
 \item{logfile}{Character Logfile for debugging parallel execution.}
 
-\item{out_name}{Character fielname for output brick.}
+\item{out_name}{Character filename for output brick.}
 
 \item{datatype}{Character  \code{\link{raster::dataType}} for output. Will be converted to gdal \code{ot}.}
 
