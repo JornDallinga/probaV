@@ -52,6 +52,7 @@ cleanProbaV <- function(f_data, QC_val, fill=255, as.is=FALSE, ...){
         cat("writing...")
         writeRaster(b, ... , bylayer=T, suffix=c("RED0_sm", "NIR0_sm", "BLUE_sm", "SWIR_sm"), progress="bar")
         file.remove(filename)
+        gc()
       }
     } else {
       # single leyer, e.g. NDVI
