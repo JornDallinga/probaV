@@ -2,7 +2,7 @@
 % Please edit documentation in R/getHarmMetrics.R
 \name{getHarmMetrics}
 \alias{getHarmMetrics}
-\title{fits robust linear harmonic model to ts and retunrs the parameters}
+\title{fits robust linear harmonic model to ts and returns the parameters}
 \usage{
 getHarmMetrics(x, dates = NULL, QC_good = NULL, sig = 0.95,
   n_years = NA, lin_trend = T, order = c(1, 2, 3), robust = F,
@@ -15,15 +15,13 @@ getHarmMetrics(x, dates = NULL, QC_good = NULL, sig = 0.95,
 
 \item{QC_good}{Integer or Logical. If supplied, values of x that are not 1 or \code{TRUE} in QC_good are omitted. Must have same length as x and dd.}
 
-\item{sig}{Numeric If not NA, coeficients with p-value > sig will be set to 0.}
-
-\item{n_years}{Integer. If not \code{NULL}, additional coeff. for n intra-yearly variation.}
+\item{n_years}{Integer. If not \code{NULL}, additional coeff. for n intra-yearly variation. NOTE: Not working yet}
 
 \item{lin_trend}{Logical. Should a linear trend be modelled?}
 
 \item{order}{Numeric. First or second order harmonics}
 
-\item{robust}{Logical Use robust regression from \code{\link{robustbase:lmrob}}?}
+\item{robust}{Logical Use robust regression from \code{\link{robustbase:lmrob}}? NOTE: Not working yet}
 
 \item{probs}{Numeric. Vector of two probabilities to compute quantiles.}
 

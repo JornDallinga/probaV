@@ -1,15 +1,14 @@
-#' fits robust linear harmonic model to ts and retunrs the parameters
+#' fits robust linear harmonic model to ts and returns the parameters
 #'
 #' @description Processes Proba-V data for subsequentent use in time-series analysis. Performs Proba-V cleaning and operations with parallel support.
 #'
 #' @param x Numeric or ts Time series
 #' @param dates Dates oberservation times if no time series is supplied
 #' @param QC_good Integer or Logical. If supplied, values of x that are not 1 or \code{TRUE} in QC_good are omitted. Must have same length as x and dd.
-#' @param sig Numeric If not NA, coeficients with p-value > sig will be set to 0.
-#' @param n_years Integer. If not \code{NULL}, additional coeff. for n intra-yearly variation.
+#' @param n_years Integer. If not \code{NULL}, additional coeff. for n intra-yearly variation. NOTE: Not working yet
 #' @param lin_trend Logical. Should a linear trend be modelled?
 #' @param order Numeric. First or second order harmonics
-#' @param robust Logical Use robust regression from \code{\link{robustbase:lmrob}}?
+#' @param robust Logical Use robust regression from \code{\link{robustbase:lmrob}}? NOTE: Not working yet
 #' @param probs Numeric. Vector of two probabilities to compute quantiles.
 #' @param ... additional args. non implemented.
 #'
@@ -94,10 +93,10 @@ getHarmMetrics <- function(x, dates=NULL, QC_good=NULL, sig=0.95, n_years=NA, li
 
   metrics <- c(quantile(x, probs = c(0.01, 0.99), na.rm = T), lmh$coefficients)
 
-  if (!is.na(sig)) {
-    p_values <- anova(lmh)$"Pr(>F)"[1:(length(lmh$coefficients)-1)]
-    metrics[-c(1:3)][p_values > sig] <- 0
-  }
+  #if (!is.na(sig)) {
+  #  p_values <- anova(lmh)$"Pr(>F)"[1:(length(lmh$coefficients)-1)]
+  #  metrics[-c(1:3)][p_values > sig] <- 0
+  #}
   names(metrics) <- c("min", "max", "intercept", names(lmh$coefficients)[-1])
   return(metrics)
 }
