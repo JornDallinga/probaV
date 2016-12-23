@@ -4,9 +4,9 @@
 \alias{getHarmMetrics}
 \title{fits robust linear harmonic model to ts and returns the parameters}
 \usage{
-getHarmMetrics(x, dates = NULL, QC_good = NULL, sig = 0.95,
-  n_years = NA, lin_trend = T, order = c(1, 2, 3), robust = F,
-  return_model = F, probs = c(0.01, 0.99), ...)
+getHarmMetrics(x, dates = NULL, QC_good = NULL, n_years = NA,
+  lin_trend = T, order = c(1, 2, 3), robust = F, return_model = F,
+  probs = c(0.01, 0.99), ...)
 }
 \arguments{
 \item{x}{Numeric or ts Time series}

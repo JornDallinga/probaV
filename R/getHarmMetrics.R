@@ -21,7 +21,7 @@
 #' @export
 #'
 
-getHarmMetrics <- function(x, dates=NULL, QC_good=NULL, sig=0.95, n_years=NA, lin_trend=T, order=c(1,2,3), robust=F, return_model=F, probs = c(0.01, 0.99), ...){
+getHarmMetrics <- function(x, dates=NULL, QC_good=NULL, n_years=NA, lin_trend=T, order=c(1,2,3), robust=F, return_model=F, probs = c(0.01, 0.99), ...){
 
   # helper to eg p values from model objects
   lmp <- function (modelobject) {
