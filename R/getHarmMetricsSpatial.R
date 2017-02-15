@@ -19,7 +19,7 @@
 #'
 
 getHarmMetricsSpatial <- function(x, df_probav_sm, n_years=NULL, order=1, robust=FALSE,
-                                     cf_bands, thresholds=c(-80, Inf, -120, 120) , span=0.3, scale_f=NULL, minrows=1, mc.cores=1, logfile, filename, ...) {
+                                     cf_bands=NULL, thresholds=c(-80, Inf, -120, 120) , span=0.3, scale_f=NULL, minrows=1, mc.cores=1, logfile, filename, ...) {
   # Copy dataframe
   s_info <- df_probav_sm
   # Assign metadata to variables
@@ -27,12 +27,12 @@ getHarmMetricsSpatial <- function(x, df_probav_sm, n_years=NULL, order=1, robust
   dates <- s_info[s_info$band == bands[1], 'date']
   ydays <- s_info[s_info$band == bands[1], 'yday']
   if (nlayers(x) != length(bands) * length(dates)) {
-    stop("Inputstack nlayers doesn't fit meta data in layer names!")
+    stop("Number of input raster layers differs from time series length.")
   }
   thresholds <- matrix(thresholds, nrow=2)
   len_res <- (4 + (order*2)) * length(bands)
 
-  cat("\nOutputlayers:", len_res, "\n")
+  cat("\nNumber of output layers:", len_res, "\n")
 
 
   fun <- function(x){
@@ -41,11 +41,15 @@ getHarmMetricsSpatial <- function(x, df_probav_sm, n_years=NULL, order=1, robust
 
     if (!all(is.na(m[1,]))) {
       res <- try({
-        # smooth loess on all cf bands, then combine
-        qc <- foreach(bn = 1:length(cf_bands), .combine='&') %do% {
-          qcb <-   smoothLoess(m[cf_bands[bn],], dates = dates, threshold = thresholds[,bn],
-                               res_type = "QC", span=span)
-          qcb == 1
+        if (!is.null(cf_bands)) {
+          # smooth loess on all cf bands, then combine
+          qc <- foreach(bn = 1:length(cf_bands), .combine='&') %do% {
+            qcb <-   smoothLoess(m[cf_bands[bn],], dates = dates, threshold = thresholds[,bn],
+                                 res_type = "QC", span=span)
+            qcb == 1
+          }
+        } else {
+          qc <- NULL
         }
 
         #get metrics
